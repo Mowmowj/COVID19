@@ -1,3 +1,11 @@
+---
+title: COVID-19疫情大数据可视化地图项目总结
+date: 2020-1-22 17:02:16
+tags: JavaScript Node.js
+categories: Front-End
+---
+
+
 ## **COVID-19疫情大数据可视化地图**
 
 ### 运行方法:
@@ -35,8 +43,14 @@
 
    
 
-   ## 实现方法
+   ## 技术栈
 
+   ​							**JS+jQuery+Node.js+Echarts**
+   
+   
+   
+   ## 实现方法
+   
    1. 通过**node.js**配合cheerio和superagent工具编写**node爬虫**爬取丁香园网页中的文字统计数据. 使用eval方法清洗数据,使用fs工具写入
    2. 本地使用**node.js搭建本地服务器**分配端口,将数据投射到本地服务器
    3. 配置**Echarts**工具. 导入地图,导入数据,二次筛选数据.修改Echarts参数.
