@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19全国疫情数据分布实况图</title>
+    <script src="./js/echarts.min.js"></script>
+    <script src="./js/china.js"></script>
+  </head>
+  <body style="text-align: center; background-color: #f9f1db;">
+    <h1  style="text-align: center; font-size: 50px;"> COVID-19全国疫情数据分布实况图</h1>
+    <div id="total" style="width: 940px;height: 100px; margin: 0 auto; font-size: 40px;font-weight: bolder; text-align: center;color: brown;"></div>
+    <div id="container" style="width: 740px;height: 700px; margin: 0 auto;"></div>
+    
+    <div style="margin: 0 auto; margin-top: 50px;">
+      <iframe style="margin: 0 auto;" src="./maindata.html" scrolling="no" width="820px" height="700px" frameborder= "0" ;border="0"></iframe>
+      <h3>主要数据统计图</h3>
+    </div>
+    <div style="margin: 0 auto; margin-top: 50px;">
+      <iframe style="margin: 0 auto;" src="./top6.html" scrolling="no" width="820px" height="700px" frameborder= "0" ;border="0"></iframe>
+      <h3>现存确诊感染人数排名前六省份</h3>
+    </div>
+    
+    <script>
+      var myChart = echarts.init(document.querySelector('#container'))
+      fetch(`http://127.0.0.1:8002`)
+        .then(res => res.json()) 
+        .then(res => {
+          var getListByCountryTypeService1 = res.getListByCountryTypeService1
+          var filterData = []
+          getListByCountryTypeService1.forEach(item => {
+            filterData.push({
+              name: item.provinceShortName,
+              value: item.currentConfirmedCount,
+              hisvalue: item.confirmedCount,
+              deadCount: item.deadCount,
+              curedCount: item.curedCount
+            })
+          })
+          function sum(filterData) {
+          var s = 0;
+          for (var i=filterData.length-1; i>=0; i--) {
+          s += filterData[i].value;
+          }
+          return s;
+          }
+        
+          var total = sum (filterData);
+          document.getElementById("total").innerHTML="总现存确诊:"+total+"人";
+          myChart.setOption({
+            title: {
+              text: '',
+              subtext: '数据来源:  Node爬取丁香医生    制作:  SheltonZhang',
+              left: 'center',
+              top: 0
+            },
+            backgroundColor: '#f9f1db',
+            visualMap: [
+              {
+                type: 'piecewise', 
+                pieces: [
+                  { gt: 10000 }, 
+                  { gt: 1000, lte: 9999 },
+                  { gt: 100, lte: 999 }, 
+                  { gt: 10, lte: 99 }, 
+                  { gt: 0, lte: 9 }, 
+                  {lte: 0}
+                 
+                ],
+                inRange: {
+                  color: ['#c3d7df','#8abcd1', '#66a9c9', '#1677b3', '#126e82', '#131824']
+                }
+              }
+            ],
+            tooltip: {
+              // triggerOn: 'mousemove'',
+              formatter: function(params) {
+                return `地区：${params.name}<br/>现存确诊: ${(params.data && params.data.value) || 0}人<br/>累计确诊：${params.data.hisvalue || 0}人<br/>治愈：${(params.data && params.data.curedCount) || 0}人<br/>死亡：${(params.data && params.data.deadCount) || 0}人<br/>`
+              }
+            },
+            series: [
+              {
+                type: 'map', 
+                map: 'china',
+                label: {
+                  show: true
+                },
+                data: filterData
+              }
+            ]
+          })
+        })
+    </script>
+  </body>
+</html>

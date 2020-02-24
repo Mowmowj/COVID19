@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+     <script src="./js/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 800px;height: 700px; margin: 0 auto;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        fetch(`http://127.0.0.1:8002`)
+        .then(res => res.json()) 
+        .then(res => {
+          var getListByCountryTypeService1 = res.getListByCountryTypeService1
+          var filterData = []
+          getListByCountryTypeService1.forEach(item => {
+            filterData.push({
+              name: item.provinceShortName,
+              value: item.currentConfirmedCount,
+              hisvalue: item.confirmedCount,
+              deadCount: item.deadCount,
+              curedCount: item.curedCount
+            })
+          })
+          function sum1(filterData) {
+          var s = 0;
+          for (var i=filterData.length-1; i>=0; i--) {
+          s += filterData[i].value;
+          }
+          return s;
+          }
+          var value = sum1(filterData);
+
+          function sum2(filterData) {
+          var s = 0;
+          for (var i=filterData.length-1; i>=0; i--) {
+          s += filterData[i].hisvalue;
+          }
+          return s;
+          }
+          var hisvalue = sum2(filterData);
+
+
+          function sum3(filterData) {
+          var s = 0;
+          for (var i=filterData.length-1; i>=0; i--) {
+          s += filterData[i].deadCount;
+          }
+          return s;
+          }
+          var deadCount = sum3(filterData);
+
+
+
+          function sum4(filterData) {
+          var s = 0;
+          for (var i=filterData.length-1; i>=0; i--) {
+          s += filterData[i].curedCount;
+          }
+          return s;
+          }
+          var curedCount = sum4(filterData);
+
+
+        var option = {
+            title: {
+        text: '',
+        subtext: '制作: SheltonZhang',
+    
+    },
+    xAxis: {
+        type: 'category',
+        data: ['现存确诊', '累计确诊', '累计死亡', '累计治愈']
+    },
+    yAxis: {
+        type: 'value',
+     
+    },
+    series: [{
+        data: [sum1(filterData), sum2(filterData), sum3(filterData), sum4(filterData)],
+        type: 'bar',
+        lineStyle:{
+            normal:{
+                width: 6
+            }
+        },
+    
+    label: {
+          normal: {
+              show: true,
+              position: 'top',
+              textStyle: {
+                color: 'red',
+                fontSize: 50,
+                fontweight: 'bolder'
+              }
+          }
+     },
+
+    },
+    {
+        data: [sum1(filterData), sum2(filterData), sum3(filterData), sum4(filterData)],
+        type: 'line',
+        lineStyle:{
+            normal:{
+                width: 6
+            }
+        },
+    
+          }
+]
+};
+
+
+
+        myChart.setOption(option);
+        });
+    </script>
+</body>
+</html>
