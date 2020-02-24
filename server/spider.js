@@ -18,7 +18,7 @@ superagent
       if (err) throw err
       console.log('数据爬取成功')
     })
-  })
+  }) 
   .catch(err => {
     throw err
   })

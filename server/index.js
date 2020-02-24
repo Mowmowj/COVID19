@@ -16,7 +16,7 @@ app.get('', (req, res) => {
   fs.readFile(path.join(__dirname, './data.json'), 'utf8', (err, data) => {
     if (err) throw err
     console.log(data)
-    res.send(data)
+    res.send(data) 
   })
 })
 app.listen(8002, () => {
