@@ -37,24 +37,17 @@
 
    ## 实现方法
 
-   - 通过**node.js**配合cheerio和superagent工具编写**node爬虫**爬取丁香园网页中的文字统计数据. 使用eval方法清洗数据,使用fs工具写入本地
-   
-     superagent(http://visionmedia.github.io/superagent/ ) 是个 http 方面的库，可以发起 get 或 post 请求,安全的伪造自己是浏览器去访问网页
-     
-       cheerio(https://github.com/cheeriojs/cheerio )为服务器特别定制   的，快速、灵活、实施的 jQuery. 用来从网页中以 css selector  取数据，使用方式跟 jquery 一样。
+   1. 通过**node.js**配合cheerio和superagent工具编写**node爬虫**爬取丁香园网页中的文字统计数据. 使用eval方法清洗数据,使用fs工具写入
+   2. 本地使用**node.js搭建本地服务器**分配端口,将数据投射到本地服务器
+   3. 配置**Echarts**工具. 导入地图,导入数据,二次筛选数据.修改Echarts参数.
+   4. 代码复用,加工数据展示其他统计图
 
-- 使用**node.js搭建本地服务器**分配端口,将数据投射到本地服务器
-  
-- 配置**Echarts**工具. 导入地图,导入数据,二次筛选数据.修改Echarts参数.
-  
-- 代码复用,加工数据展示其他统计图
-  
 
-  
-   
-  
-   
-  
+
+ 
+
+ 
+
 ## 更新与BUG修改
 
 1. 优化显示颜色
