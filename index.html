@@ -25,7 +25,7 @@
       var myChart = echarts.init(document.querySelector('#container'))
       fetch(`http://127.0.0.1:8002`)
         .then(res => res.json()) 
-        .then(res => { 
+        .then(res => {  
           var getListByCountryTypeService1 = res.getListByCountryTypeService1
           var filterData = []
           getListByCountryTypeService1.forEach(item => {
