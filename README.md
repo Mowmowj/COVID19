@@ -83,6 +83,10 @@
 
    
 
+   
+
+   
+
    ___________________________________________________________________________________________________________________________________________________________________
 
    ### 源码分享
@@ -96,14 +100,14 @@
    #### 使用 node 写一个简单爬虫，爬取疫情数据
 
    > 
-
-   1. npm安两个库
-
-      - superagent(http://visionmedia.github.io/superagent/ ) 是个 http 方面的库，可以发起 get 或 post 请求 隐身自己是浏览器
+   
+1. npm安两个库
+   
+   - superagent(http://visionmedia.github.io/superagent/ ) 是个 http 方面的库，可以发起 get 或 post 请求 隐身自己是浏览器
       - cheerio(https://github.com/cheeriojs/cheerio )为服务器特别定制的，快速、灵活、实施的 jQuery. 用来从网页中以 css selector 取数据，使用方式跟 jquery 一样。
-
+   
    2. 爬取丁香园网站
-
+   
       ```js
       function crawlerData() {
         var targetUrl = 'https://ncov.dxy.cn/ncovh5/view/pneumonia'
@@ -112,13 +116,13 @@
           .then(result => {
           })
           .catch(err => {
-            console.log(err)
+         console.log(err)
           })
-      }
+   }
       ```
-
+   
    3. 通过 cheerios 筛选获取数据
-
+   
       ```js
       let originDataObj = {}
       function evalJsStr() {
@@ -131,26 +135,26 @@
       const $ = cheerio.load(result.text)
       const $provinceStr = $('#getListByCountryTypeService1').html()
       const $provinceAndCityStr = $('#getAreaStat').html()
-      const $getStatisticsStr = $('#getStatisticsService').html()
+   const $getStatisticsStr = $('#getStatisticsService').html()
       evalJsStr($provinceStr, $provinceAndCityStr, $getStatisticsStr)
-      console.log(originDataObj)
+   console.log(originDataObj)
       ```
-
+   
    4. 将爬取的 json 数据写入本地文件中存储
-
+   
       ```js
       fs.writeFile(path.join(__dirname, './data.json'), JSON.stringify(originDataObj), err => {
-        if (err) throw err
+     if (err) throw err
         console.log('数据写入成功')
-      })
+   })
       ```
 
    5. 创建 express 服务器将爬取的数据通过接口响应
 
       - `yarn add express`下载 express
-
+   
       - 新建`index.js`文件编写接口
-
+   
         ```js
         const fs = require('fs')
         const path = require('path')
@@ -164,15 +168,15 @@
             res.send(data)
           })
         })
-        app.listen(8088, () => {
+     app.listen(8088, () => {
           console.log('服务启动了 http://127.0.0.1:8022')
-        })
+     })
         ```
 
    #### echarts 实现全国疫情分布图
-
+   
    1. 图表背景色`backgroundColor`和标题`title`及`series`选项配置
-
+   
       ```html
       <script src="echarts.js"></script>
       <script src="map/js/china.js"></script>
@@ -194,13 +198,13 @@
               type: 'map',
               map: 'china' 
             }
-          ]
+       ]
         })
-      </script>
+   </script>
       ```
-
+   
    2. series 选项添加数据
-
+   
       ```js
       fetch('http://127.0.0.1:8002')
         .then(res => res.json())
@@ -230,25 +234,25 @@
                   color: 'rgba(0, 0, 0, 0.7)'
                 }
               }
-            ]
+         ]
           })
-        })
+     })
       ```
-
+   
    3. `tooltip`提示框组件配置
-
+   
       ```js
        tooltip: {
          triggerOn: 'mousemove', 
          formatter: function(params) {
        
-           return `地区：${params.name}<br/> 现存确诊人数：${params.value}<br/>疑似人数：${params.data?.suspectedCount}<br/>`
+        return `地区：${params.name}<br/> 现存确诊人数：${params.value}<br/>疑似人数：${params.data?.suspectedCount}<br/>`
          }
-       }
+    }
       ```
-
+   
    4. `visualMap`是视觉映射组件配置
-
+   
       ```js
        visualMap: {
          type: 'piecewise', 
@@ -267,13 +271,13 @@
          text: ['高', '低'], 
          inRange: { 
            color: ['#ffaa85', '#ff7b69', '#cc2929', '#8c0d0d', '#660208']
-         },
+      },
          showLabel: true 
-       }
+    }
       ```
-
+   
    5.编写方法,实现遍历数据求和得到总数
-
+   
    ```javascripta
     function sum1(filterData) {
              var s = 0;
@@ -281,9 +285,9 @@
              s += filterData[i].value;
              }
              return s;
-             }
+          }
              var value = sum1(filterData);
-             //比如这里实现计算现存确诊人数
+          //比如这里实现计算现存确诊人数
    ```
 
    6.继续寻找处理数据,计算出图中需要的数据
@@ -299,7 +303,7 @@
    
 
    
-
    
-
+   
+   
    
