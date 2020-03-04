@@ -12,7 +12,7 @@
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
-        fetch(`http://127.0.0.1:8002`)
+        fetch(`http://127.0.0.1:8089`)
         .then(res => res.json()) 
         .then(res => {
           var getListByCountryTypeService1 = res.getListByCountryTypeService1
@@ -74,14 +74,14 @@
     },
     xAxis: {
         type: 'category',
-        data: ['现存确诊', '累计确诊', '累计死亡', '累计治愈']
+        data: ['累计治愈', '现存确诊', '累计死亡', '累计确诊']
     },
     yAxis: {
         type: 'value',
      
     },
     series: [{
-        data: [sum1(filterData), sum2(filterData), sum3(filterData), sum4(filterData)],
+        data: [sum4(filterData), sum1(filterData), sum3(filterData), sum2(filterData)],
         type: 'bar',
         lineStyle:{
             normal:{
@@ -103,7 +103,7 @@
 
     },
     {
-        data: [sum1(filterData), sum2(filterData), sum3(filterData), sum4(filterData)],
+        data: [sum4(filterData), sum1(filterData), sum3(filterData), sum2(filterData)],
         type: 'line',
         lineStyle:{
             normal:{

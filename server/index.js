@@ -19,6 +19,6 @@ app.get('', (req, res) => {
     res.send(data) 
   })
 })
-app.listen(8002, () => {
-  console.log(`当前服务器启动成功 http://127.0.0.1:8002`)
+app.listen(8089, () => {
+  console.log(`当前服务器启动成功 http://127.0.0.1:8089`)
 })

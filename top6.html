@@ -8,11 +8,11 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 800px;height: 700px; margin: 0 auto;"></div>
+    <div id="main" style="width: 1000px;height: 860px; margin: 0 auto;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
-        fetch(`http://127.0.0.1:8002`)
+        fetch(`http://127.0.0.1:8089`)
         .then(res => res.json()) 
         .then(res => {
           var getListByCountryTypeService1 = res.getListByCountryTypeService1
@@ -71,7 +71,7 @@
               position: 'right',
               textStyle: {
                 color: '',
-                fontSize: 30,
+                fontSize: 15,
                 fontweight: 'bolder'
               }
           }

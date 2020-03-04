@@ -76,6 +76,10 @@ categories: Front-End
 
 6. 加入现存确诊人数前六省统计图
 
+7. 修改字体超限问题
+
+8. 由于组件更新产生server不能使用的问题 修改bug 重新上线
+
    
 
    
@@ -107,16 +111,16 @@ categories: Front-End
    > 
 
    #### 使用 node 写一个简单爬虫，爬取疫情数据
-   
+
    > 
-   
-1. npm安两个库
-   
+
+9. npm安两个库
+
    - superagent(http://visionmedia.github.io/superagent/ ) 是个 http 方面的库，可以发起 get 或 post 请求 隐身自己是浏览器
       - cheerio(https://github.com/cheeriojs/cheerio )为服务器特别定制的，快速、灵活、实施的 jQuery. 用来从网页中以 css selector 取数据，使用方式跟 jquery 一样。
-   
+
    2. 爬取丁香园网站
-   
+
       ```js
       function crawlerData() {
         var targetUrl = 'https://ncov.dxy.cn/ncovh5/view/pneumonia'
@@ -129,9 +133,9 @@ categories: Front-End
           })
    }
       ```
-   
+
    3. 通过 cheerios 筛选获取数据
-   
+
       ```js
       let originDataObj = {}
       function evalJsStr() {
@@ -148,9 +152,9 @@ categories: Front-End
       evalJsStr($provinceStr, $provinceAndCityStr, $getStatisticsStr)
    console.log(originDataObj)
       ```
-   
+
    4. 将爬取的 json 数据写入本地文件中存储
-   
+
       ```js
       fs.writeFile(path.join(__dirname, './data.json'), JSON.stringify(originDataObj), err => {
        if (err) throw err
@@ -161,9 +165,9 @@ categories: Front-End
    5. 创建 express 服务器将爬取的数据通过接口响应
 
       - `yarn add express`下载 express
-   
+
       - 新建`index.js`文件编写接口
-   
+
         ```js
         const fs = require('fs')
         const path = require('path')
@@ -183,9 +187,9 @@ categories: Front-End
         ```
 
    #### echarts 实现全国疫情分布图
-   
+
    1. 图表背景色`backgroundColor`和标题`title`及`series`选项配置
-   
+
       ```html
       <script src="echarts.js"></script>
       <script src="map/js/china.js"></script>
@@ -211,9 +215,9 @@ categories: Front-End
         })
    </script>
       ```
-   
+
    2. series 选项添加数据
-   
+
       ```js
       fetch('http://127.0.0.1:8002')
         .then(res => res.json())
@@ -247,9 +251,9 @@ categories: Front-End
           })
        })
       ```
-   
+
    3. `tooltip`提示框组件配置
-   
+
       ```js
        tooltip: {
          triggerOn: 'mousemove', 
@@ -259,9 +263,9 @@ categories: Front-End
          }
     }
       ```
-   
+
    4. `visualMap`是视觉映射组件配置
-   
+
       ```js
        visualMap: {
          type: 'piecewise', 
@@ -284,9 +288,9 @@ categories: Front-End
          showLabel: true 
     }
       ```
-   
+
    5.编写方法,实现遍历数据求和得到总数
-   
+
    ```javascripta
     function sum1(filterData) {
              var s = 0;
@@ -312,7 +316,7 @@ categories: Front-End
    
 
    
+
    
-   
-   
+
    
