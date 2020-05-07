@@ -45,7 +45,7 @@ categories: Front-End
 
    ## 技术栈
 
-   ​							**JS+jQuery+Node.js+Echarts**
+   ​							**JS+Node.js+Express+Echarts**
    
    
    
